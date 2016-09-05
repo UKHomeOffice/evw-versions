@@ -9,6 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "^0.22.0"
+    "async": "^2.0.1",
+    "cheerio": "^0.22.0",
+    "koa": "^1.2.2",
+    "koa-handlebars": "^0.5.7"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2"
   }
 }

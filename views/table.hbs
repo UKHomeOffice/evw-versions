@@ -1,0 +1,98 @@
+<h1>{{title}}</h1>
+
+<table style="width: 100%;" border="1">
+  <tbody>
+    <thead>
+      <tr>
+        <th colspan="1" rowspan="2" headers="" scope="">Application</th>
+      </tr>
+      <tr></tr>
+      <tr>
+        <th></th>
+        <th colspan="7" rowspan="" headers="" scope="">Dev</th>
+      </tr>
+      <tr>
+        <tr>
+          <th></th>
+        {{#each envs.dev}}
+          <th>{{@key}}</th>
+        {{/each}}
+        </tr>
+        {{!-- <tr>user testing</tr>
+        {{#each envs.user}}
+          <th>{{@key}}</th>
+        {{/each}}
+        </tr> --}}
+      </tr>
+
+    <tr>
+      <td><b>evw-customer</b></td>
+      <td>{{envs.dev.dvcus01.evw-customer}}</td>
+      <td>{{envs.dev.dvcus02.evw-customer}}</td>
+    </tr>
+    <tr>
+      <td><b>evw-self-serve</b></td>
+      <td>{{envs.dev.dvcus01.evw-self-serve}}</td>
+      <td>{{envs.dev.dvcus02.evw-self-serve}}</td>
+    </tr>
+    <tr>
+      <td><b>evw-application-processor</b></td>
+      <td>{{envs.dev.dvcus01.evw-application-processor}}</td>
+      <td>{{envs.dev.dvcus02.evw-application-processor}}</td>
+    </tr>
+    <tr>
+      <td><b>flight-forecast-service</b></td>
+      <td>{{envs.dev.dvcus01.flight-forecast-service}}</td>
+      <td>{{envs.dev.dvcus02.flight-forecast-service}}</td>
+    </tr>
+    <tr>
+      <td><b>mock-integration-service</b></td>
+      <td>{{envs.dev.dvcus01.mock-integration-service}}</td>
+      <td>{{envs.dev.dvcus02.mock-integration-service}}</td>
+    </tr>
+
+    {{!-- case --}}
+    <tr>
+      <td><b>evw-caseworker</b></td>
+      <td></td>
+      <td></td>
+      <td>{{envs.dev.dvcas01.evw-caseworker}}</td>
+      <td>{{envs.dev.dvcas02.evw-caseworker}}</td>
+    </tr>
+    <tr>
+      <td><b>evw-integration-service</b></td>
+      <td></td>
+      <td></td>
+      <td>{{envs.dev.dvcas01.evw-integration-service}}</td>
+      <td>{{envs.dev.dvcas02.evw-integration-service}}</td>
+    </tr>
+
+    {{!-- ocr --}}
+    <tr>
+      <td><b>evw-integration-service</b></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>{{#each envs.dev.dvocr01}}{{this}}{{/each}}</td>
+      <td>{{#each envs.dev.dvocr02}}{{this}}{{/each}}</td>
+    </tr>
+
+    {{!-- wps --}}
+    <tr>
+      <td><b>rtp-worldpay-stub</b></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>{{envs.dev.dvwps01.rtp-worldpay-stub}}</td>
+    </tr>
+
+
+
+
+
+  </tbody>
+</table>

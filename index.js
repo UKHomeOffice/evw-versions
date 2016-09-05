@@ -1,6 +1,7 @@
 'use strict';
 
 const http = require('http');
+const async = require('async');
 const cheerio = require('cheerio');
 const authstr = process.env.NAGIOS_AUTH;
 const base = (host) => `monitoring.registered-traveller.homeoffice.gov.uk/nagios/cgi-bin/extinfo.cgi?type=2&host=${host}&service=Version+-+`;
@@ -45,21 +46,29 @@ let hosts = {};
 // http://monitoring.registered-traveller.homeoffice.gov.uk/nagios/cgi-bin/extinfo.cgi?type=2&host=dvcas02&service=Version+-+evw-caseworker
 
 const envCheck = (env, list) => {
-  // console.log('checking', env, list);
+  let tasks = [];
   list.forEach((item) => {
-    check(`dv${env}01`, item, pick);
-    check(`dv${env}02`, item, pick);
+    let it = {};
+    it[item] = function() {
+      this[`dv${env}01`] = check(`dv${env}01`, item, pick);
+      // check(`dv${env}02`, item, pick),
 
-    check(`ut${env}01`, item, pick);
-    check(`ut${env}02`, item, pick);
+      // check(`ut${env}01`, item, pick),
+      // check(`ut${env}02`, item, pick),
 
-    check(`pp${env}01`, item, pick);
-    check(`pp${env}01`, item, pick);
+      // check(`pp${env}01`, item, pick),
+      // check(`pp${env}01`, item, pick),
 
-    check(`pd${env}02`, item, pick);
-    check(`pd${env}02`, item, pick);
-
+      // check(`pd${env}02`, item, pick),
+      // check(`pd${env}02`, item, pick)
+    };
+    tasks.push(it);
   });
+  console.log(tasks);
+  // async.parallel(tasks, (err, results) => {
+  //   console.log(err, results);
+  //   return doLog();
+  // });
 };
 
 const check = (host, app, cb) => {
@@ -80,32 +89,40 @@ const check = (host, app, cb) => {
 const pick = (data, host, app) => {
   let $ = cheerio.load(data);
   let version = $('.stateInfoTable1').find('td:contains("Status Information:")').next().text();
-  // console.log(`${host} > ${app} version:
-  // ${version}`);
+
+  if(!version){
+    return;
+  }
 
   let entry = {};
   entry[app] = version;
 
   if (hosts.hasOwnProperty(host)) {
-    console.log(host, 'exists, pushing', entry);
+    // console.log(host, 'exists, pushing', entry);
     hosts[host][app] = version;
   } else {
     hosts[host] = {};
     hosts[host][app] = version;
-    console.log('created', host, 'pushing', entry);
+    // console.log('created', host, 'pushing', entry);
   }
   // console.log('pushing', entry, 'into', hosts[host]);
 }
 
-Object.keys(envs).forEach((item, i, arr) => {
-  let list = envs[item];
-  envCheck(arr[i], list);
-});
 
+const begin = () => {
+  Object.keys(envs).forEach((item, i, arr) => {
+    let list = envs[item];
+    envCheck(arr[i], list);
+  });
+}
 
-setTimeout(function(){
-  console.log(hosts);
-},10000);
+const doLog = () => console.log(hosts);
+
+begin();
+
+// setTimeout(function(){
+//   console.log(hosts);
+// },10000);
 
 
 
