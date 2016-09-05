@@ -10,11 +10,12 @@ let content = map(data);
 console.log('rendering with', content);
 
 app.use(hbs({
-  defaultLayout: 'main'
+  defaultLayout: 'main',
+  partialsDir: 'views/partials'
 }));
 
 app.use(function *() {
-  yield this.render('table', {
+  yield this.render('table-by-app-type', {
     title: 'what is deployed on what (WIDOW)',
     envs: content
   });

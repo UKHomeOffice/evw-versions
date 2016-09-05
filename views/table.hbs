@@ -15,7 +15,7 @@
         <tr>
           <th></th>
         {{#each envs.dev}}
-          <th>{{@key}}</th>
+          <th>{{this}}</th>
         {{/each}}
         </tr>
         {{!-- <tr>user testing</tr>
@@ -90,8 +90,88 @@
       <td>{{envs.dev.dvwps01.rtp-worldpay-stub}}</td>
     </tr>
 
+      <tr>
+        <th></th>
+        <th colspan="7" rowspan="" headers="" scope="">User</th>
+      </tr>
+      <tr>
+        <tr>
+          <th></th>
+        {{#each envs.user}}
+          <th>{{this}}</th>
+        {{/each}}
+        </tr>
+        {{!-- <tr>user testing</tr>
+        {{#each envs.user}}
+          <th>{{@key}}</th>
+        {{/each}}
+        </tr> --}}
+      </tr>
 
+    <tr>
+      <td><b>evw-customer</b></td>
+      <td>{{envs.user.utcus01.evw-customer}}</td>
+      <td>{{envs.user.utcus02.evw-customer}}</td>
+    </tr>
+    <tr>
+      <td><b>evw-self-serve</b></td>
+      <td>{{envs.user.utcus01.evw-self-serve}}</td>
+      <td>{{envs.user.utcus02.evw-self-serve}}</td>
+    </tr>
+    <tr>
+      <td><b>evw-application-processor</b></td>
+      <td>{{envs.user.utcus01.evw-application-processor}}</td>
+      <td>{{envs.user.utcus02.evw-application-processor}}</td>
+    </tr>
+    <tr>
+      <td><b>flight-forecast-service</b></td>
+      <td>{{envs.user.utcus01.flight-forecast-service}}</td>
+      <td>{{envs.user.utcus02.flight-forecast-service}}</td>
+    </tr>
+    <tr>
+      <td><b>mock-integration-service</b></td>
+      <td>{{envs.user.utcus01.mock-integration-service}}</td>
+      <td>{{envs.user.utcus02.mock-integration-service}}</td>
+    </tr>
 
+    {{!-- case --}}
+    <tr>
+      <td><b>evw-caseworker</b></td>
+      <td></td>
+      <td></td>
+      <td>{{envs.user.utcas01.evw-caseworker}}</td>
+      <td>{{envs.user.utcas02.evw-caseworker}}</td>
+    </tr>
+    <tr>
+      <td><b>evw-integration-service</b></td>
+      <td></td>
+      <td></td>
+      <td>{{envs.user.utcas01.evw-integration-service}}</td>
+      <td>{{envs.user.utcas02.evw-integration-service}}</td>
+    </tr>
+
+    {{!-- ocr --}}
+    <tr>
+      <td><b>evw-integration-service</b></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>{{#each envs.user.utocr01}}{{this}}{{/each}}</td>
+      <td>{{#each envs.user.utocr02}}{{this}}{{/each}}</td>
+    </tr>
+
+    {{!-- wps --}}
+    <tr>
+      <td><b>rtp-worldpay-stub</b></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>{{envs.user.utwps01.rtp-worldpay-stub}}</td>
+    </tr>
 
 
   </tbody>
