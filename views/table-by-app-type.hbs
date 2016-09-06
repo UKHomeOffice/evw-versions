@@ -2,69 +2,31 @@
 
 <table style="width: 100%;" border="1">
   <tbody>
-    <thead>
-      <tr>
-        <th colspan="1" rowspan="2" headers="" scope="">Application</th>
-      </tr>
-      <tr></tr>
-      <tr>
-        <th></th>
-        <th colspan="8">Customer Apps</th>
-      </tr>
-      <tr>
-        <th></th>
-        <th colspan="2">Dev</th>
-        <th colspan="2">User Testing</th>
-        <th colspan="2">Pre-prod</th>
-        <th colspan="2">Production</th>
-      </tr>
-      <tr>
-        <tr>
-          <th></th>
-          <th>dvcus01</th>
-          <th>dvcus02</th>
-          <th>utcus01</th>
-          <th>utcus02</th>
-          <th>ppcus01</th>
-          <th>ppcus02</th>
-          <th>pdcus01</th>
-          <th>pdcus02</th>
-        </tr>
-      </tr>
-
-    {{> customerAppList app='evw-customer'}}
-    {{> customerAppList app='evw-self-serve'}}
-    {{> customerAppList app='evw-application-processor'}}
-    {{> customerAppList app='flight-forecast-service'}}
-    {{> customerAppList app='mock-integration-service'}}
-
     <tr>
-        <th></th>
-        <th colspan="8">Caseworker apps</th>
-      </tr>
-      <tr>
-        <th></th>
-        <th colspan="2">Dev</th>
-        <th colspan="2">User Testing</th>
-        <th colspan="2">Pre-prod</th>
-        <th colspan="2">Production</th>
-      </tr>
-      <tr>
-        <tr>
-          <th></th>
-          <th>dvcas01</th>
-          <th>dvcas02</th>
-          <th>utcas01</th>
-          <th>utcas02</th>
-          <th>ppcas01</th>
-          <th>ppcas02</th>
-          <th>pdcas01</th>
-          <th>pdcas02</th>
-        </tr>
-      </tr>
+      <th colspan="1" rowspan="2" headers="" scope="">Application</th>
+    </tr>
+    <tr></tr>
 
-    {{> caseAppList app='evw-caseworker'}}
-    {{> caseAppList app='evw-integration-service'}}
+    {{!-- customer --}}
+    {{> tableHeadings context='cus' title='Customer Apps'}}
+    {{> appList app='evw-customer' context='cus'}}
+    {{> appList app='evw-self-serve' context='cus'}}
+    {{> appList app='evw-application-processor' context='cus'}}
+    {{> appList app='flight-forecast-service' context='cus'}}
+    {{> appList app='mock-integration-service' context='cus'}}
+
+    {{!-- caseworker --}}
+    {{> tableHeadings context='cas' title='Caseworker Apps'}}
+    {{> appList app='evw-caseworker' context='cas'}}
+    {{> appList app='evw-integration-service' context='cas'}}
+
+    {{!-- OCR --}}
+    {{> tableHeadings context='ocr' title='OCR'}}
+    {{> appList app='Passport+OCR+Service' context='ocr'}}
+
+    {{!-- Worldpay stub --}}
+    {{> tableHeadings context='ocr' title='Worldpay stub'}}
+    {{> appList app='rtp-worldpay-stub' context='wps'}}
 
   </tbody>
 </table>

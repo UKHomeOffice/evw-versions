@@ -9,9 +9,17 @@ const map = require('./envmap');
 let content = map(data);
 console.log('rendering with', content);
 
+let helpers = {
+  box: (obj, key, prop, num, app) => {
+    let lookup = `${key}${prop}${num}`;
+    return obj[lookup] && obj[lookup][app];
+  }
+}
+
 app.use(hbs({
   defaultLayout: 'main',
-  partialsDir: 'views/partials'
+  partialsDir: 'views/partials',
+  helpers: helpers
 }));
 
 app.use(function *() {
