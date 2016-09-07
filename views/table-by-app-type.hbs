@@ -1,32 +1,33 @@
-<h1>{{title}}</h1>
 
-<table style="width: 100%;" border="1">
-  <tbody>
-    <tr>
-      <th colspan="1" rowspan="2" headers="" scope="">Application</th>
-    </tr>
-    <tr></tr>
+<div class="container-fluid">
+  {{!-- <h1 class="display-6">{{title}}</h1> --}}
 
     {{!-- customer --}}
-    {{> tableHeadings context='cus' title='Customer Apps'}}
+    {{> tableHeadings context='cus' title='Customer Apps' full=true}}
     {{> appList app='evw-customer' context='cus'}}
     {{> appList app='evw-self-serve' context='cus'}}
     {{> appList app='evw-application-processor' context='cus'}}
     {{> appList app='flight-forecast-service' context='cus'}}
     {{> appList app='mock-integration-service' context='cus'}}
+    </tbody>
+    </table>
 
     {{!-- caseworker --}}
     {{> tableHeadings context='cas' title='Caseworker Apps'}}
     {{> appList app='evw-caseworker' context='cas'}}
     {{> appList app='evw-integration-service' context='cas'}}
+    </tbody>
+    </table>
 
     {{!-- OCR --}}
     {{> tableHeadings context='ocr' title='OCR'}}
     {{> appList app='Passport+OCR+Service' context='ocr'}}
-
+    </tbody>
+    </table>
     {{!-- Worldpay stub --}}
     {{> tableHeadings context='ocr' title='Worldpay stub'}}
     {{> appList app='rtp-worldpay-stub' context='wps'}}
+    </tbody>
+    </table>
 
-  </tbody>
-</table>
+</div>

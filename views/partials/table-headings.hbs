@@ -1,32 +1,26 @@
-<tr>
-  <th></th>
-  <th colspan="8">{{title}}</th>
-</tr>
+<h3 class="display-4">{{title}}</h3>
 
-<tr>
-  <th></th>
-  <th colspan="2">Dev</th>
-  <th colspan="2">User Testing</th>
-  <th colspan="2">Pre-prod</th>
-  <th colspan="2">Production</th>
-</tr>
-
-<tr>
-  <th colspan="9">
-    <tr></tr>
-  </th>
-</tr>
-
-<tr>
-  <tr>
-    <th></th>
-    <th>dv{{context}}01</th>
-    <th>dv{{context}}02</th>
-    <th>ut{{context}}01</th>
-    <th>ut{{context}}02</th>
-    <th>pp{{context}}01</th>
-    <th>pp{{context}}02</th>
-    <th>pd{{context}}01</th>
-    <th>pd{{context}}02</th>
-  </tr>
-</tr>
+<table class="table table-striped table-bordered table-inverse table-hover .table-responsive">
+  <tbody>
+    {{#if full}}
+    <thead class="thead-inverse">
+      <tr class="bg-primary">
+        <th colspan="1" rowspan="2" headers="" scope="">Application</th>
+        <th colspan="2">Dev</th>
+        <th colspan="2">User Testing</th>
+        <th colspan="2">Pre-prod</th>
+        <th colspan="2">Production</th>
+      </tr>
+    </thead>
+    {{/if}}
+    <tr>
+      <th></th>
+      <th>dv{{context}}01</th>
+      <th>dv{{context}}02</th>
+      <th>ut{{context}}01</th>
+      <th>ut{{context}}02</th>
+      <th>pp{{context}}01</th>
+      <th>pp{{context}}02</th>
+      <th>pd{{context}}01</th>
+      <th>pd{{context}}02</th>
+    </tr>

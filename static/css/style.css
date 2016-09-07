@@ -1,0 +1,21 @@
+body {
+  color: #eceeef;
+  background: #111;
+  -webkit-font-smoothing: antialiased;
+}
+
+table {
+  margin:10px auto;
+  width:90%;
+}
+/*
+html {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+table {
+  border:1px solid #444;
+}
+td {
+  padding:4px 2px;
+  font-family: monospace;
+}*/
