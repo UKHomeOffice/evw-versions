@@ -1,5 +1,7 @@
 'use strict'
 
+const path = require('path');
+const serve = require('koa-static-server');
 const koa = require('koa');
 const hbs = require('koa-handlebars');
 const app = koa();
@@ -15,6 +17,10 @@ let helpers = {
     return obj[lookup] && obj[lookup][app];
   }
 }
+
+app.use(serve({
+  rootDir: path.resolve(__dirname) + '/static'
+}));
 
 app.use(hbs({
   defaultLayout: 'main',
