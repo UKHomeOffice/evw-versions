@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const path = require('path');
 const serve = require('koa-static-server');
@@ -16,7 +16,7 @@ let helpers = {
     let lookup = `${key}${prop}${num}`;
     return obj[lookup] && obj[lookup][app];
   }
-}
+};
 
 app.use(serve({
   rootDir: path.resolve(__dirname) + '/static'
