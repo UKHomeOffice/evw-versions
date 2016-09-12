@@ -39,7 +39,7 @@ const apps = {
   'passport-ocr-service': {
     box: 'ocr',
     port: 9360,
-    endpoint: '/healthcheck'
+    endpoint: '/version'
   }
 };
 
@@ -47,7 +47,7 @@ let envs = {};
 let calls = [];
 
 const build = ((item) => {
-  console.log('building', item);
+  // console.log('building', item);
   let appValue;
   let app = {};
 
@@ -126,6 +126,9 @@ const chainCalls = (apps, calls, next) => {
       query(`ut${app.box}01`, app.port, app.endpoint, key, cb);
     });
     calls.push((cb) => {
+      query(`ut${app.box}02`, app.port, app.endpoint, key, cb);
+    });
+    calls.push((cb) => {
       query(`pp${app.box}01`, app.port, app.endpoint, key, cb);
     });
     calls.push((cb) => {
@@ -138,30 +141,46 @@ const chainCalls = (apps, calls, next) => {
       query(`pd${app.box}02`, app.port, app.endpoint, key, cb);
     });
   });
-  next(calls);
+  return next(calls);
 };
 
 const saveEnvs = (envs) => {
 
-  fs.writeFile('envs-saved.json', JSON.stringify(envs), function(err) {
-    if(err) {
-        return console.log(err);
-    }
-    console.log('envs saved');
-  });
+  try {
+    envs = JSON.parse(JSON.stringify(envs));
+    fs.writeFile('envs-saved.json', JSON.stringify(envs), function(err) {
+      if(err) {
+          return console.log(err);
+      }
+      console.log('envs saved');
+      return envs;
+    });
+  } catch (e) {
+    console.log('not saving envs, invalid json', envs);
+  }
 
 };
 
 const makeCalls = (calls) => {
-  async.parallel(async.reflectAll(calls), function(err, results) {
-    console.log('🙈 any errors? 💀', err);
-    console.log('final results', results);
-    console.log('envs', envs);
-    saveEnvs(envs);
-  });
+  return new Promise((resolve, reject) => {
+    async.parallel(async.reflectAll(calls), function(err, results) {
+      console.log('🙈 any errors? 💀', err);
+      if(err) {
+        reject(err);
+      }
+      // console.log(results);
+      saveEnvs(envs);
+      return resolve(envs);
+    });
+  })
 };
 
-chainCalls(apps, calls, makeCalls);
+module.exports = {
+  chain: chainCalls,
+  apps: apps,
+  calls: calls,
+  make: makeCalls
+}
 
 
 

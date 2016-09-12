@@ -27,3 +27,5 @@ rules:
   no-debugger: 1
   no-console: 1
   # no-reserved-keys: 2 # disallow reserved words being used as object literal keys (off by default)
+plugins:
+  - mocha
