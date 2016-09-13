@@ -9,37 +9,44 @@ const apps = {
   'evw-customer': {
     box: 'cus',
     port: 3018,
-    endpoint: '/shared/healthcheck/version'
+    endpoint: '/shared/healthcheck/version',
+    instances: 2
   },
   'flights-forecast-service': {
     box: 'cus',
     port: 9350,
-    endpoint: '/version'
+    endpoint: '/version',
+    instances: 2
   },
   'evw-self-serve': {
     box: 'cus',
     port: 3016,
-    endpoint: '/version'
+    endpoint: '/version',
+    instances: 2
   },
   'evw-application-processor': {
     box: 'cus',
     port: 8897,
-    endpoint: '/version'
+    endpoint: '/version',
+    instances: 2
   },
   'evw-caseworker': {
     box: 'cas',
     port: 9000,
-    endpoint: '/caseworker/version'
+    endpoint: '/caseworker/version',
+    instances: 2
   },
   'evw-integration-service': {
     box: 'cas',
     port: 9300,
-    endpoint: '/version'
+    endpoint: '/version',
+    instances: 2
   },
   'passport-ocr-service': {
     box: 'ocr',
     port: 9360,
-    endpoint: '/version'
+    endpoint: '/version',
+    instances: 3
   }
 };
 
@@ -81,7 +88,7 @@ const query = (host, port, path, app, cb) => {
   }
 
   // console.log(`trying ${host}:${port}${path}`);
-
+  // console.log('getting', location);
   curler.get(location, (res) => {
 
     let body = '';
@@ -101,7 +108,11 @@ const query = (host, port, path, app, cb) => {
         code: res.statusCode
       });
 
-      cb(err, body, host);
+      try {
+        cb(err, body, host);
+      } catch (e) {
+        console.log('could not apply callback');
+      }
     }).on('error', (err) => {
       console.log(`Got error querying: ${err.message}`);
       cb(err);
@@ -115,6 +126,23 @@ const query = (host, port, path, app, cb) => {
     }
   });
 };
+
+// const chainCalls = (apps, calls, next) => {
+//   // such looping
+//   Object.keys(apps).forEach((key) => {
+//     let app = apps[key];
+//     for (var n = app.instances -1; n >= 0; n--) {
+//       ['dv', 'ut', 'pp', 'pd'].forEach((env) => {
+//         // console.log(key, env, `${env}${app.box}0${n+1}`);
+//         let machine = n+1;
+//         calls.push((cb) => {
+//           query(`${env}${app.box}0${machine}`, app.port, app.endpoint, key, cb);
+//         });
+//       })
+//     }
+//   });
+//   return next(calls);
+// };
 
 const chainCalls = (apps, calls, next) => {
   Object.keys(apps).forEach((key) => {
@@ -157,7 +185,7 @@ const saveEnvs = (envs) => {
       if(err) {
           return console.log(err);
       }
-      // console.log('envs saved');
+      console.log('new environment information saved');
       return envs;
     });
   } catch (e) {

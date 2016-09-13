@@ -28,7 +28,6 @@ const getEnvs = (current) => {
     getter.make
   ).then((data) => {
     if( JSON.stringify(current) !== JSON.stringify(data) ) {
-      console.log('fresh envs', data);
       io.broadcast( 'envs', 'release the bats' );
       // todo transmit new environment dataset hbs.render
     }
@@ -37,8 +36,10 @@ const getEnvs = (current) => {
   });
 }
 
+let assetPath = path.resolve(__dirname) + '/static';
+
 app.use(serve({
-  rootDir: path.resolve(__dirname) + '/static'
+  rootDir: assetPath
 }));
 
 app.use(hbs({
@@ -50,7 +51,8 @@ app.use(hbs({
 app.use(function *() {
   yield this.render('table-by-app-type', {
     title: 'what is deployed on what (WIDOW)',
-    envs: content
+    envs: content,
+    assetPath: process.env.VERSIONS_APP_ASSET_PATH || ''
   });
 });
 
@@ -70,9 +72,10 @@ io.on('disconnect', ctx => {
   });
 });
 
-app.listen(app.listen(process.env.PORT || 3000), () => {
+app.listen(app.listen(process.env.VERSIONS_APP_PORT || 3000), () => {
   setInterval(function () {
     getEnvs(data);
   }, 60000); // check every minute
+  getEnvs(data);
   console.log('app running on 3000');
 });
