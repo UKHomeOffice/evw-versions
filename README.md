@@ -19,7 +19,7 @@ supervisor -e js,hbs app.js
 
 ### aspirations
 
-* [ ] collect versions from application published endpoints
-* [*] enqueue all http requests using e.g. [async parallel](http://caolan.github.io/async/docs.html#.parallel)
+* [x] collect versions from application published endpoints
+* [x] enqueue all http requests using e.g. [async parallel](http://caolan.github.io/async/docs.html#.parallel)
 * [ ] loudly highlight when versions mismatch between machines
 * [ ] less loudly highlight differences between environments
