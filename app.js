@@ -89,23 +89,25 @@ io.on( 'numConnections', packet => {
   console.log( `Number of connections: ${ io.connections.size }, ${ packet }` )
 })
 
-const getEnvs = (envs) => {
+const getEnvs = (current) => {
   getter.chain(
     getter.apps,
     getter.calls,
     getter.make
   ).then((data) => {
-    console.log('fresh envs', data, Handlebars);
-    let rendered = Handlebars.parse(map(data));
-    console.log('rendered', rendered);
-    if( envs !== data ) {
-      console.log('envs do not match data');
-      // todo transmit new environment dataset
+    if( JSON.stringify(current) !== JSON.stringify(data) ) {
+      console.log('fresh envs', data);
+      io.broadcast( 'envs', 'release the bats' );
+      // todo transmit new environment dataset hbs.render
     }
-  });
+  }).catch(function(e) {
+    console.log('error getting envs', e);
+  });;
 }
 
 app.listen(app.listen(process.env.PORT || 3000), () => {
-  getEnvs(data);
+  setInterval(function () {
+    getEnvs(data);
+  }, 60000); // check every minute
   console.log('app running on 3000');
 });

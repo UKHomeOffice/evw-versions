@@ -80,7 +80,7 @@ const query = (host, port, path, app, cb) => {
     });
   }
 
-  console.log(`trying ${host}:${port}${path}`);
+  // console.log(`trying ${host}:${port}${path}`);
 
   curler.get(location, (res) => {
 
@@ -92,7 +92,7 @@ const query = (host, port, path, app, cb) => {
         console.log('err', err);
       }
 
-      console.log('got', body, res.statusCode);
+      // console.log('got', body, res.statusCode);
       build({
         result: body,
         application: app,
@@ -107,14 +107,19 @@ const query = (host, port, path, app, cb) => {
       cb(err);
     });
   }).setTimeout(400, () => {
-    cb('timed out querying ' + host);
+    console.log('timed out querying ' + host);
+    try {
+      cb('timed out querying', host);
+    } catch (e) {
+      console.log('timeout callback error', e);
+    }
   });
 };
 
 const chainCalls = (apps, calls, next) => {
   Object.keys(apps).forEach((key) => {
     let app = apps[key];
-    console.log(`adding... ${key}:`, apps[key], `dv${app.box}01`);
+    // console.log(`adding... ${key}:`, apps[key], `dv${app.box}01`);
     // lol, do this better
     calls.push((cb) => {
       query(`dv${app.box}01`, app.port, app.endpoint, key, cb);
@@ -152,7 +157,7 @@ const saveEnvs = (envs) => {
       if(err) {
           return console.log(err);
       }
-      console.log('envs saved');
+      // console.log('envs saved');
       return envs;
     });
   } catch (e) {
@@ -164,8 +169,8 @@ const saveEnvs = (envs) => {
 const makeCalls = (calls) => {
   return new Promise((resolve, reject) => {
     async.parallel(async.reflectAll(calls), function(err, results) {
-      console.log('🙈 any errors? 💀', err);
       if(err) {
+        console.log('🙈 errors 💀', err);
         reject(err);
       }
       // console.log(results);
