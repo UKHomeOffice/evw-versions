@@ -23,3 +23,4 @@ supervisor -e js,hbs app.js
 * [x] enqueue all http requests using e.g. [async parallel](http://caolan.github.io/async/docs.html#.parallel)
 * [ ] loudly highlight when versions mismatch between machines
 * [ ] less loudly highlight differences between environments
+* [ ] check versions of `rtp-worldpay-stub` and `mock-integration-service`	
