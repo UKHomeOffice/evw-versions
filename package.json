@@ -13,9 +13,9 @@
     "cheerio": "^0.22.0",
     "co": "^4.6.0",
     "koa": "^1.2.2",
-    "koa-handlebars": "^0.5.7",
+    "koa-handlebars": "^1.0.0",
     "koa-socket": "^4.4.0",
-    "koa-static-server": "^0.1.8",
+    "koa-static-server": "^1.0.0",
     "socks5-http-client": "^1.0.2"
   },
   "devDependencies": {
